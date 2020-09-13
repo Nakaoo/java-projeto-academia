@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox prefHeight="358.0" prefWidth="679.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+   <children>
+      <Label alignment="CENTER" prefHeight="20.0" prefWidth="593.0" text="Clientes" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <items>
+          <Button mnemonicParsing="false" text="Cadastrar" />
+            <Button mnemonicParsing="false" text="Atualizar Consulta" />
+            <Button mnemonicParsing="false" text="Fechar" />
+        </items>
+      </ToolBar>
+      <TableView prefHeight="238.0" prefWidth="670.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Id" />
+          <TableColumn prefWidth="75.0" text="Nome" />
+            <TableColumn prefWidth="75.0" text="Instrutor" />
+            <TableColumn prefWidth="105.0" text="Data_Venc_Fat" />
+            <TableColumn prefWidth="120.0" text="Fatura foi paga?" />
+            <TableColumn minWidth="0.0" prefWidth="0.0" text="Id" />
+            <TableColumn prefWidth="75.0" text="Visualizar" />
+            <TableColumn prefWidth="75.0" text="Editar" />
+            <TableColumn prefWidth="75.0" text="Deletar" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>

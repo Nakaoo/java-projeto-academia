@@ -6,7 +6,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
    <content>
       <VBox prefHeight="283.0" prefWidth="457.0">
          <children>
@@ -14,8 +14,8 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Clientes">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Cadastrar" />
-                        <MenuItem mnemonicParsing="false" text="Listar" />
+                    <MenuItem fx:id="menuIemCadastrarCli" mnemonicParsing="false" onAction="#onMenuItemCadastrarCliAction" text="Cadastrar" />
+                        <MenuItem fx:id="menuIemListarCli" mnemonicParsing="false" onAction="#onMenuItemListarCliAction" text="Listar" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Instrutores ">

@@ -14,8 +14,8 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Clientes">
                   <items>
-                    <MenuItem fx:id="menuIemCadastrarCli" mnemonicParsing="false" onAction="#onMenuItemCadastrarCliAction" text="Cadastrar" />
-                        <MenuItem fx:id="menuIemListarCli" mnemonicParsing="false" onAction="#onMenuItemListarCliAction" text="Listar" />
+                    <MenuItem fx:id="menuIemCliCadastrar" mnemonicParsing="false" onAction="#onMenuItemCliCadastrarAction" text="Cadastrar" />
+                        <MenuItem fx:id="menuIemCliListar" mnemonicParsing="false" onAction="#onMenuItemCliListarAction" text="Listar" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Instrutores ">
@@ -29,6 +29,11 @@
                   </items>
                 </Menu>
                   <Menu mnemonicParsing="false" text="Ajuda">
+                     <items>
+                        <MenuItem fx:id="menuItemAjudaSobre" mnemonicParsing="false" onAction="#onMenuItemAjudaSobreAction" text="Sobre" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Sistema">
                      <items>
                         <MenuItem mnemonicParsing="false" text="Close" />
                      </items>

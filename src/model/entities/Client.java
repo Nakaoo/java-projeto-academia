@@ -14,16 +14,16 @@ public class Client implements Serializable {
 	private String estado;
 	private String telefone;
 	private String cpf;
+	private String email;
 	private Date dataNascimento;
 	private Boolean faturaPaga;
-	private Date dataVencimentoFat;
-
+	
 	public Client() {
 		
 	}
 
-	public Client(Integer id, String nome, String endereco, String bairro, String estado, String telefone, String cpf,
-			Date dataNascimento, Boolean faturaPaga, Date dataVencimentoFat) {
+	public Client(Integer id, String nome, String endereco, String bairro, String estado, String telefone, String cpf, String email,
+			Date dataNascimento, Boolean faturaPaga) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -32,11 +32,12 @@ public class Client implements Serializable {
 		this.estado = estado;
 		this.telefone = telefone;
 		this.cpf = cpf;
+		this.email = email;
 		this.dataNascimento = dataNascimento;
 		this.faturaPaga = faturaPaga;
-		this.dataVencimentoFat = dataVencimentoFat;
 	}
 
+	
 	public Integer getId() {
 		return id;
 	}
@@ -92,6 +93,15 @@ public class Client implements Serializable {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 
 	public Date getDataNascimento() {
 		return dataNascimento;
@@ -109,13 +119,6 @@ public class Client implements Serializable {
 		this.faturaPaga = faturaPaga;
 	}
 
-	public Date getDataVencimentoFat() {
-		return dataVencimentoFat;
-	}
-
-	public void setDataVencimentoFat(Date dataVencimentoFat) {
-		this.dataVencimentoFat = dataVencimentoFat;
-	}
 
 	@Override
 	public int hashCode() {
@@ -146,12 +149,5 @@ public class Client implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Client [id=" + id + ", nome=" + nome + ", endereco=" + endereco + ", bairro=" + bairro + ", estado="
-				+ estado + ", telefone=" + telefone + ", cpf=" + cpf + ", dataNascimento=" + dataNascimento
-				+ ", faturaPaga=" + faturaPaga + ", dataVencimentoFat=" + dataVencimentoFat + "]";
 	}
 }

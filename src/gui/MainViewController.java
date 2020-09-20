@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import application.Main;
 import gui.util.Alerts;
@@ -15,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.services.ClientService;
 
 public class MainViewController implements Initializable {
 
@@ -34,12 +36,15 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	public void onMenuItemCliListarAction() {
-		this.loadView("/gui/ClientList.fxml");
+		loadView("/gui/ClientList.fxml", (ClientListController controller) -> {
+			controller.setClientService(new ClientService());
+			controller.updateTableView();
+		});
 	}
 	
 	@FXML
 	public void onMenuItemAjudaSobreAction() {
-		this.loadView("/gui/About.fxml");
+		loadView("/gui/About.fxml", x -> {});
 	}
 	
 	
@@ -48,7 +53,7 @@ public class MainViewController implements Initializable {
 		
 	}
 	
-	private synchronized void loadView(String absoluteName) {
+	private synchronized <T> void loadView(String absoluteName, Consumer<T> initializingAction) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			VBox newVBox = loader.load();
@@ -60,9 +65,13 @@ public class MainViewController implements Initializable {
 			mainVBox.getChildren().clear();
 			mainVBox.getChildren().add(mainMenu);
 			mainVBox.getChildren().addAll(newVBox.getChildren());
+			
+			T controller = loader.getController();
+			initializingAction.accept(controller);
 		}
 		catch(IOException e) {
 			Alerts.showAlert("IOException", "Erro carregando pagina", e.getMessage(), AlertType.ERROR);
 		}
 	}
+
 }

@@ -2,9 +2,12 @@ package gui;
 
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -13,10 +16,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.entities.Client;
+import model.services.ClientService;
 
 
 public class ClientListController implements Initializable{
 
+	private ClientService service;
+	
 	@FXML
 	private TableView<Client> tableViewClient;
 
@@ -53,9 +59,15 @@ public class ClientListController implements Initializable{
 	@FXML
 	private Button btRegistration;
 	
+	private ObservableList<Client> obsList;
+	
 	@FXML
 	public void onBtRegistrationAction() {
 		System.out.println("onRegistrationAction");
+	}
+	
+	public void setClientService(ClientService service) {
+		this.service = service;
 	}
 	
 	@Override
@@ -66,12 +78,6 @@ public class ClientListController implements Initializable{
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-		tableColumnEndereco.setCellValueFactory(new PropertyValueFactory<>("endereco"));
-		tableColumnBairro.setCellValueFactory(new PropertyValueFactory<>("bairro"));
-		tableColumnEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
-		tableColumnTelefone.setCellValueFactory(new PropertyValueFactory<>("telefone"));
-		tableColumnCpf.setCellValueFactory(new PropertyValueFactory<>("cpf"));
-		tableColumnDataNascimento.setCellValueFactory(new PropertyValueFactory<>("dataNascimento"));
 		tableColumnFaturaPaga.setCellValueFactory(new PropertyValueFactory<>("faturaPaga"));
 		tableColumnDataVencimentoFat.setCellValueFactory(new PropertyValueFactory<>("dataVencimentoFat"));
 		
@@ -79,5 +85,13 @@ public class ClientListController implements Initializable{
 		tableViewClient.prefHeightProperty().bind(stage.heightProperty());
 	}
 	
+	public void updateTableView() {
+		if(service == null) {
+			throw new IllegalStateException("Serviço vazio");
+		}
+		List<Client> list = service.findAll();
+		obsList = FXCollections.observableArrayList(list);
+		tableViewClient.setItems(obsList);
+	}
 	
 }

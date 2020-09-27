@@ -1,4 +1,3 @@
-
 package model.dao.impl;
 
 import java.sql.Connection;
@@ -13,25 +12,26 @@ import com.mysql.jdbc.Statement;
 import db.DB;
 import db.DBException;
 import db.DbIntegrityException;
-import model.dao.ClientDao;
-import model.entities.Client;
+import model.dao.InstructorDao;
+import model.entities.Instructor;
+import model.entities.Plans;
 
-public class ClientDaoJdbc implements ClientDao {
+public class InstructorDaoJdbc implements InstructorDao {
 
 	private Connection conn;
 
-	public ClientDaoJdbc(Connection conn) {
+	public InstructorDaoJdbc(Connection conn) {
 		this.conn = conn;
 	}
 
 	@Override
-	public void insert(Client obj) {
+	public void insert(Instructor obj) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("INSERT INTO TBCLIENTE "
-					+ "(NOME, ENDERECO, BAIRRO, ESTADO, DATANASCIMENTO, CPF, EMAIL, FKIDINSTRUTOR) "
-					+ "VALUES "
-					+ "(?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+			st = conn.prepareStatement("INSERT INTO TBINSTRUTOR "
+					+ "(NOME, ENDERECO, BAIRRO, ESTADO, DATANASCIMENTO, CPF, EMAIL, SALARIO, FKIDPLANO) " + "VALUES "
+
+					+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, obj.getNome());
 			st.setString(2, obj.getEndereco());
 			st.setString(3, obj.getBairro());
@@ -39,10 +39,11 @@ public class ClientDaoJdbc implements ClientDao {
 			st.setDate(5, new java.sql.Date(obj.getDataNascimento().getTime()));
 			st.setString(6, obj.getCpf());
 			st.setString(7, obj.getEmail());
-			st.setInt(8, obj.getInstructorName().getId());
+			st.setDouble(8, obj.getSalario());
+			st.setInt(9, obj.getPlanNome().getId());
 
 			int rowsAffected = st.executeUpdate();
-			
+
 			if (rowsAffected > 0) {
 				ResultSet rs = st.getGeneratedKeys();
 				if (rs.next()) {
@@ -61,12 +62,12 @@ public class ClientDaoJdbc implements ClientDao {
 	}
 
 	@Override
-	public void update(Client obj) {
+	public void update(Instructor obj) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("UPDATE TBCLIENTE " + "SET NOME = ? ," + "ENDERECO= ? ," + "BAIRRO = ? ,"
-					+ "ESTADO = ? ," + "DATANASCIMENTO = ? ," + "CPF = ? ," + "EMAIL = ? ,"
-					+ "FKIDINSTRUTOR = ? " + "WHERE ID = ?");
+			st = conn.prepareStatement("UPDATE TBINSTRUTOR " + "SET NOME = ? ," + "ENDERECO= ? ," + "BAIRRO = ? ,"
+					+ "ESTADO = ? ," + "DATANASCIMENTO = ? ," + "CPF = ? ," + "EMAIL = ? ," + "SALARIO = ? ,"
+					+ "FKIDPLANO = ? " + "WHERE ID = ?");
 
 			st.setString(1, obj.getNome());
 			st.setString(2, obj.getEndereco());
@@ -75,8 +76,10 @@ public class ClientDaoJdbc implements ClientDao {
 			st.setDate(5, new java.sql.Date(obj.getDataNascimento().getTime()));
 			st.setString(6, obj.getCpf());
 			st.setString(7, obj.getEmail());
-			st.setInt(8, obj.getInstructorName().getId());
-			st.setInt(9, obj.getId());
+			st.setDouble(8, obj.getSalario());
+			st.setInt(9, obj.getPlanNome().getId());
+			st.setInt(10, obj.getId());
+
 			st.executeUpdate();
 		} catch (SQLException e) {
 			throw new DBException(e.getMessage());
@@ -89,7 +92,7 @@ public class ClientDaoJdbc implements ClientDao {
 	public void deleteById(Integer id) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("DELETE FROM tbcliente WHERE Id = ?");
+			st = conn.prepareStatement("DELETE FROM tbinstrutor WHERE Id = ?");
 
 			st.setInt(1, id);
 
@@ -102,32 +105,35 @@ public class ClientDaoJdbc implements ClientDao {
 
 	}
 
-	public Client findById(Integer id) {
+	@Override
+	public Plans findById(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Client> findAll() {
+	public List<Instructor> findAll() {
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT *  FROM TBCLIENTE INNER JOIN TBINSTRUTOR ON TBCLIENTE.FKIDINSTRUTOR= TBINSTRUTOR.ID ORDER BY TBCLIENTE.ID");
+			st = conn.prepareStatement(
+					"SELECT * FROM TBINSTRUTOR INNER JOIN TBPLANO ON TBINSTRUTOR.FKIDPLANO = TBPLANO.ID");
 			rs = st.executeQuery();
 
-			List<Client> list = new ArrayList<>();
+			List<Instructor> list = new ArrayList<>();
 
 			while (rs.next()) {
-				Client obj = new Client();
+				Instructor obj = new Instructor();
 				obj.setId(rs.getInt("Id"));
 				obj.setNome(rs.getString("Nome"));
-				obj.setEndereco(rs.getString("endereco"));
-				obj.setBairro(rs.getString("bairro"));
-				obj.setEstado(rs.getString("estado"));
+				obj.setEndereco(rs.getString("Endereco"));
+				obj.setBairro(rs.getString("Bairro"));
+				obj.setEstado(rs.getString("Estado"));
+				obj.setEmail(rs.getString("Email"));
+				obj.setCpf(rs.getString("Cpf"));
+				obj.setSalario(rs.getDouble("Salario"));
+				obj.setPlanVin(rs.getString("TbPlano.nome"));
 				obj.setDataNascimento(new java.util.Date(rs.getTimestamp("DataNascimento").getTime()));
-				obj.setCpf(rs.getString("cpf"));
-				obj.setEmail(rs.getString("email"));
-				obj.setInstructor(rs.getString("TBINSTRUTOR.NOME"));
 				list.add(obj);
 			}
 			return list;

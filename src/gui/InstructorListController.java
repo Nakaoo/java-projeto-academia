@@ -28,61 +28,58 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.entities.Client;
-import model.services.ClientService;
+import model.entities.Instructor;
 import model.services.InstructorService;
+import model.services.PlansService;
 
-public class ClientListController implements Initializable {
-	private ClientService service;
-	
-	@FXML
-	private TableView<Client> tableViewClient;
+public class InstructorListController implements Initializable {
+	private InstructorService service;
 
 	@FXML
-	private TableColumn<Client, Integer> tableColumnId;
-	
-	@FXML
-	private TableColumn<Client, String> tableColumnNome;
-	
-	@FXML
-	private TableColumn<Client, Double> tableColumnSalario;
-	
-	@FXML
-	private TableColumn<Client, String> tableColumnPlanVin;
-	
-	@FXML
-	private TableColumn<Client, String> tableColumnFaturaPaga;
+	private TableView<Instructor> tableViewInstructor;
 
 	@FXML
-	private TableColumn<Client, Client> tableColumnEdit;
+	private TableColumn<Instructor, Integer> tableColumnId;
 
 	@FXML
-	private TableColumn<Client, Client> tableColumnRemove;
-	
+	private TableColumn<Instructor, String> tableColumnNome;
+
 	@FXML
-	private TableColumn<Client, Client> tableColumnVisualize;
-	
+	private TableColumn<Instructor, Double> tableColumnSalario;
+
+	@FXML
+	private TableColumn<Instructor, String> tableColumnPlanVin;
+
+	@FXML
+	private TableColumn<Instructor, Instructor> tableColumnEdit;
+
+	@FXML
+	private TableColumn<Instructor, Instructor> tableColumnRemove;
+
+	@FXML
+	private TableColumn<Instructor, Instructor> tableColumnVisualize;
+
 	@FXML
 	private Button btRegistration;
 
 	@FXML
 	private Button btAtualizar;
 
-	private ObservableList<Client> obsList;
+	private ObservableList<Instructor> obsList;
 
 	@FXML
 	public void onBtRegistrationAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		Client obj = new Client();
-		createForm(obj, "/gui/ClientForm.fxml", parentStage);
+		Instructor obj = new Instructor();
+		createForm(obj, "/gui/InstructorForm.fxml", parentStage);
 	}
-	
+
 	@FXML
 	public void onBtAtualizarAction() {
 		updateTableView();
 	}
 
-	public void setClientService(ClientService service) {
+	public void setInstructorService(InstructorService service) {
 		this.service = service;
 	}
 
@@ -91,71 +88,70 @@ public class ClientListController implements Initializable {
 		initializeNodes();
 	}
 
-	private void initializeNodes() {  
+	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-		tableColumnPlanVin.setCellValueFactory(new PropertyValueFactory<>("instructor"));
+		tableColumnSalario.setCellValueFactory(new PropertyValueFactory<>("salario"));
+		tableColumnPlanVin.setCellValueFactory(new PropertyValueFactory<>("planVin"));
 		Stage stage = (Stage) Main.getMainScene().getWindow();
-		tableViewClient.prefHeightProperty().bind(stage.heightProperty());
+		tableViewInstructor.prefHeightProperty().bind(stage.heightProperty());
 	}
 
 	public void updateTableView() {
 		if (service == null) {
 			throw new IllegalStateException("Serviço vazio");
 		}
-		List<Client> list = service.findAll();
+		List<Instructor> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
-		tableViewClient.setItems(obsList);
+		tableViewInstructor.setItems(obsList);
 		initEditButtons();
 		initRemoveButtons();
 		initVisualizeButtons();
-}
-	
+	}
 
 	private void initEditButtons() {
 		tableColumnEdit.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnEdit.setCellFactory(param -> new TableCell<Client, Client>() {
+		tableColumnEdit.setCellFactory(param -> new TableCell<Instructor, Instructor>() {
 			private final Button button = new Button("EDITAR");
 
 			@Override
-			protected void updateItem(Client obj, boolean empty) {
+			protected void updateItem(Instructor obj, boolean empty) {
 				super.updateItem(obj, empty);
 				if (obj == null) {
 					setGraphic(null);
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(event -> createForm(obj, "/gui/ClientForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createForm(obj, "/gui/InstructorForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
 
-
 	private void initVisualizeButtons() {
 		tableColumnVisualize.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnVisualize.setCellFactory(param -> new TableCell<Client, Client>() {
+		tableColumnVisualize.setCellFactory(param -> new TableCell<Instructor, Instructor>() {
 			private final Button button = new Button("VISUALIZAR");
 
 			@Override
-			protected void updateItem(Client obj, boolean empty) {
+			protected void updateItem(Instructor obj, boolean empty) {
 				super.updateItem(obj, empty);
 				if (obj == null) {
 					setGraphic(null);
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(event -> createForm(obj, "/gui/ClientView.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createForm(obj, "/gui/InstructorView.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
 
 	private void initRemoveButtons() {
 		tableColumnRemove.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-		tableColumnRemove.setCellFactory(param -> new TableCell<Client, Client>() {
+		tableColumnRemove.setCellFactory(param -> new TableCell<Instructor, Instructor>() {
 			private final Button button = new Button("REMOVER");
 
 			@Override
-			protected void updateItem(Client obj, boolean empty) {
+			protected void updateItem(Instructor obj, boolean empty) {
 				super.updateItem(obj, empty);
 				if (obj == null) {
 					setGraphic(null);
@@ -166,16 +162,15 @@ public class ClientListController implements Initializable {
 			}
 		});
 	}
-	
-	
-	public void createForm(Client obj, String absoluteName, Stage parentStage) {
+
+	public void createForm(Instructor obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
-			ClientFormController controller = loader.getController();
-			controller.setClient(obj);
-			controller.setClientService(new ClientService());
+			InstructorFormController controller = loader.getController();
+			controller.setInstructor(obj);
 			controller.setInstructorService(new InstructorService());
+			controller.setPlanService(new PlansService());
 			controller.loadAssociatedObjects();
 			controller.updateFormData();
 			Stage dialogStage = new Stage();
@@ -190,19 +185,18 @@ public class ClientListController implements Initializable {
 			Alerts.showAlert("Error", null, e.getMessage(), AlertType.ERROR);
 		}
 	}
-	
-	protected Object removeEntity(Client obj) {
+
+	protected Object removeEntity(Instructor obj) {
 		Optional<ButtonType> result = Alerts.showConfirmation("Confirmação", "Tem certeza que deseja deletar?");
-		
-		if(result.get() == ButtonType.OK) {
+
+		if (result.get() == ButtonType.OK) {
 			if (service == null) {
 				throw new IllegalStateException("Serviço estava vazio");
 			}
 			try {
 				service.remove(obj);
 				updateTableView();
-			}
-			catch(DbIntegrityException e){
+			} catch (DbIntegrityException e) {
 				Alerts.showAlert("Error em remove o objeto", null, e.getMessage(), AlertType.ERROR);
 			}
 			service.remove(obj);

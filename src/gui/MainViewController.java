@@ -7,6 +7,8 @@ import java.util.function.Consumer;
 
 import application.Main;
 import gui.util.Alerts;
+import gui.util.Utils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,30 +19,53 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import model.services.ClientService;
+import model.services.InstructorService;
+import model.services.PlansService;
 
 public class MainViewController implements Initializable {
-
-	@FXML
-	private MenuItem menuIemCliCadastrar;
 	
 	@FXML
-	private MenuItem menuIemCliListar;
+	private MenuItem menuItemPlanListar;
+	
+	@FXML
+	private MenuItem menuItemInstListar;
+	
+	@FXML
+	private MenuItem menuItemCancelar;
 	
 	@FXML 
 	private MenuItem menuItemAjudaSobre;
-	
+
 	@FXML
-	public void onMenuItemCliCadastrarAction() {
-		System.out.println("Cadastrar");
+	public void onMenuitemCancelar(ActionEvent event){
+		Utils.currentStage(event).close();
 	}
 	
 	@FXML
+	public void onMenuIemPlanListar() {
+		this.loadView("/gui/PlanList.fxml", (PlanListController controller) -> {
+			controller.setPlanService(new PlansService());
+			controller.updateTableView();
+		});
+	}
+	
+	@FXML
+	public void onMenuIemInstListar() {
+		this.loadView("/gui/InstructorList.fxml", (InstructorListController controller) -> {
+			controller.setInstructorService(new InstructorService());
+			controller.updateTableView();
+		});
+	}
+	
+	
+	@FXML
 	public void onMenuItemCliListarAction() {
-		loadView("/gui/ClientList.fxml", (ClientListController controller) -> {
+		this.loadView("/gui/ClientList.fxml", (ClientListController controller) -> {
 			controller.setClientService(new ClientService());
 			controller.updateTableView();
 		});
 	}
+	
 	
 	@FXML
 	public void onMenuItemAjudaSobreAction() {

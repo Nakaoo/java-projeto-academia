@@ -14,18 +14,17 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Clientes">
                   <items>
-                    <MenuItem fx:id="menuIemCliCadastrar" mnemonicParsing="false" onAction="#onMenuItemCliCadastrarAction" text="Cadastrar" />
                         <MenuItem fx:id="menuIemCliListar" mnemonicParsing="false" onAction="#onMenuItemCliListarAction" text="Listar" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Instrutores ">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
+                    <MenuItem fx:id="menuItemInstListar" mnemonicParsing="false" onAction="#onMenuIemInstListar" text="Listar" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Planos">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
+                    <MenuItem fx:id="menuItemPlanListar" mnemonicParsing="false" onAction="#onMenuIemPlanListar" text="Listar" />
                   </items>
                 </Menu>
                   <Menu mnemonicParsing="false" text="Ajuda">
@@ -35,7 +34,7 @@
                   </Menu>
                   <Menu mnemonicParsing="false" text="Sistema">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem mnemonicParsing="false" text="Fechar" />
                      </items>
                   </Menu>
               </menus>

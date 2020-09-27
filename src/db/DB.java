@@ -10,6 +10,10 @@ import java.util.Properties;
 
 import com.mysql.jdbc.Statement;
 
+/*
+ * Classe responsável pela conexão com o banco de dados
+ * Tendo em mente o modelo JDBC, isso é feito para separar bem as atividades de banco de dados.
+ */
 public class DB {
 	
 	private static Connection conn = null;
@@ -19,7 +23,7 @@ public class DB {
 		if (conn == null)
 		{
 			try {
-				Properties props = loadProperties();
+				Properties props = loadProperties(); // pega o valor da função
 				String url = props.getProperty("dburl");
 				conn = DriverManager.getConnection(url, props);
 			}
@@ -40,7 +44,7 @@ public class DB {
 			}
 		}
 	}
-	//carregar propriedades
+	//carregar propriedades que estão em outro arquivo
 	private static Properties loadProperties() {
 		try (FileInputStream fs = new FileInputStream("db.properties")){
 			Properties props = new Properties();

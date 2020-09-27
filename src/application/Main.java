@@ -8,6 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 
+/*Projeto Marombacademia desenvolvido para a aula de "Programação Orientada a Objetos"  
+ * A principio o projeto era uso básico de Java Swing e Conexão com banco de dados, mas fui além e desenvolvi com tecnologias mais recentes
+ * Sendo estas: JDBC, JAVAFX, PADRÂO MVC, PADRÂO DAOFACTORY.
+ */
 public class Main extends Application {
 	
 	private static Scene mainScene;
@@ -23,7 +27,7 @@ public class Main extends Application {
 			
 			mainScene = new Scene(scrollPane);
 			primaryStage.setScene(mainScene);
-			primaryStage.setTitle("Sample JavaFX application");
+			primaryStage.setTitle("MarombaAcademia");
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();

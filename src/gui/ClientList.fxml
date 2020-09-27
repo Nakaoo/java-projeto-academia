@@ -18,20 +18,17 @@
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
           <Button fx:id="btRegistration" mnemonicParsing="false" onAction="#onBtRegistrationAction" text="Cadastrar" />
-            <Button mnemonicParsing="false" text="Atualizar Consulta" />
-            <Button mnemonicParsing="false" text="Fechar" />
+            <Button fx:id="btAtualizar" mnemonicParsing="false" text="Atualizar Consulta" />
         </items>
       </ToolBar>
       <TableView fx:id="tableViewClient" prefHeight="238.0" prefWidth="670.0">
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="75.0" text="Id" />
-          <TableColumn fx:id="tableColumnNome" prefWidth="75.0" text="Nome" />
-            <TableColumn prefWidth="75.0" text="Instrutor" />
-            <TableColumn fx:id="tableColumnDataVencimentoFat" prefWidth="105.0" text="Data_Venc_Fat" />
-            <TableColumn fx:id="tableColumnFaturaPaga" prefWidth="120.0" text="Fatura foi paga?" />
-            <TableColumn prefWidth="75.0" text="Visualizar" />
-            <TableColumn prefWidth="75.0" text="Editar" />
-            <TableColumn prefWidth="75.0" text="Deletar" />
+          <TableColumn fx:id="tableColumnNome" prefWidth="122.0" text="Nome" />
+            <TableColumn fx:id="tableColumnPlanVin" prefWidth="100.0" text="Instrutor" />
+            <TableColumn fx:id="tableColumnVisualize" prefWidth="91.0" text="Visualizar" />
+            <TableColumn fx:id="tableColumnEdit" minWidth="4.0" prefWidth="61.0" text="Editar" />
+            <TableColumn fx:id="tableColumnRemove" minWidth="0.0" prefWidth="83.0" text="Deletar" />
         </columns>
       </TableView>
    </children>

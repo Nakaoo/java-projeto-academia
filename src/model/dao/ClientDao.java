@@ -1,7 +1,6 @@
 package model.dao;
 
 import java.util.List;
-
 import model.entities.Client;
 
 public interface ClientDao {

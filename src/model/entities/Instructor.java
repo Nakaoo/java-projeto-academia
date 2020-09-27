@@ -3,8 +3,7 @@ package model.entities;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Client implements Serializable {
-
+public class Instructor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
@@ -15,16 +14,17 @@ public class Client implements Serializable {
 	private String telefone;
 	private String cpf;
 	private String email;
+	private Double salario;
 	private Date dataNascimento;
-	private Instructor instructorName;
-	private String instructor;
-	
-	public Client() {
-		
+	private Plans planNome;
+	private String planVin;
+
+	public Instructor() {
+
 	}
 
-	public Client(Integer id, String nome, String endereco, String bairro, String estado, String telefone, String cpf, String email,
-			Date dataNascimento, Integer fkIdInstrutor, Instructor instructorName, String instructor) {
+	public Instructor(Integer id, String nome, String endereco, String bairro, String estado, String telefone,
+			String cpf, String email, Double salario, Date dataNascimento, Plans planNome, String planVin) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -34,22 +34,10 @@ public class Client implements Serializable {
 		this.telefone = telefone;
 		this.cpf = cpf;
 		this.email = email;
+		this.salario = salario;
 		this.dataNascimento = dataNascimento;
-		this.instructor = instructor;
-		this.instructorName = instructorName;
-	}
-
-	
-	public Client(String nome) {
-		this.nome = nome;
-	}
-
-	public String getInstructor() {
-		return instructor;
-	}
-
-	public void setInstructor(String instructor) {
-		this.instructor = instructor;
+		this.planNome = planNome;
+		this.planVin = planVin;
 	}
 
 	public Integer getId() {
@@ -107,7 +95,7 @@ public class Client implements Serializable {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -116,6 +104,13 @@ public class Client implements Serializable {
 		this.email = email;
 	}
 
+	public Double getSalario() {
+		return salario;
+	}
+
+	public void setSalario(Double salario) {
+		this.salario = salario;
+	}
 
 	public Date getDataNascimento() {
 		return dataNascimento;
@@ -123,6 +118,19 @@ public class Client implements Serializable {
 
 	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+
+
+	public Plans getPlanNome() {
+		return planNome;
+	}
+
+	public void setPlanNome(Plans planNome) {
+		this.planNome = planNome;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override
@@ -142,7 +150,7 @@ public class Client implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Client other = (Client) obj;
+		Instructor other = (Instructor) obj;
 		if (cpf == null) {
 			if (other.cpf != null)
 				return false;
@@ -156,11 +164,11 @@ public class Client implements Serializable {
 		return true;
 	}
 
-	public Instructor getInstructorName() {
-		return instructorName;
+	public String getPlanVin() {
+		return planVin;
 	}
 
-	public void setInstructorName(Instructor instructorName) {
-		this.instructorName = instructorName;
+	public void setPlanVin(String planVin) {
+		this.planVin = planVin;
 	}
 }

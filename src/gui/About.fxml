@@ -4,11 +4,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<VBox prefHeight="252.0" prefWidth="496.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<VBox prefHeight="252.0" prefWidth="496.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="47.0" prefWidth="470.0" text="Sobre" textAlignment="RIGHT">
+      <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="47.0" prefWidth="498.0" text="Sobre" textAlignment="RIGHT" textFill="#ff0202">
          <font>
             <Font size="18.0" />
          </font>
@@ -16,6 +16,7 @@
             <Insets bottom="10.0" right="20.0" top="10.0" />
          </padding>
       </Label>
-      <Label text="Projeto desenvolvido por Kawan Nakao - GU3003752 e Rodrigo Prado - GU3004678 " />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Projeto desenvolvido por Kawan Nakao, Daniel do Nascimento, Rodrigo Prado" wrappingWidth="447.169921875" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Usando as seguintes ferramentas: JAVA FX, JDBC e padrão DAO E MVC" />
    </children>
 </VBox>
